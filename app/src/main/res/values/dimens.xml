@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="view_et_width">370dp</dimen>
+    <dimen name="headline_et_height">50dp</dimen>
+    <dimen name="note_et_height">500dp</dimen>
+    <dimen name="id_et_height"></dimen>
+    <dimen name="id_et_width"></dimen>
+
+
+
+
+
+</resources>

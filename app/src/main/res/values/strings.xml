@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">RestApiNotes</string>
+    <string name="notes">Notes</string>
+    <string name="get_notes">Get notes</string>
+    <string name="add_notes">Add notes</string>
+    <string name="headline">Headline</string>
+    <string name="edit_notes">Edit notes</string>
+    <string name="delete_notes">Delete notes</string>
+    <string name="id">ID</string>
+</resources>
