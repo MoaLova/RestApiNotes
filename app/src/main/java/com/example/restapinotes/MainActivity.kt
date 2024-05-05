@@ -3,9 +3,12 @@ package com.example.restapinotes
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.view.ViewGroup
 import android.widget.AdapterView
 import retrofit2.Callback
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import com.example.restapinotes.databinding.ActivityMainBinding
 import retrofit2.Call
 import retrofit2.Response
@@ -38,9 +41,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun getNotes() {
-
         val notesService = ServiceBuilder.buildService(NotesService::class.java)
-
         val requestCall = notesService.getNotes()
 
         requestCall.enqueue(object : Callback<List<Note>> {
@@ -48,7 +49,33 @@ class MainActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     val notesList: List<Note> = response.body() ?: emptyList()
                     runOnUiThread {
-                        val arrayAdapter = ArrayAdapter(this@MainActivity, R.layout.show_notes, notesList)
+                        // Initialize custom ArrayAdapter
+                        val arrayAdapter = object : ArrayAdapter<Note>(
+                            this@MainActivity,
+                            R.layout.list_item,
+                            notesList
+                        ) {
+                            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                                val view = convertView ?: layoutInflater.inflate(
+                                    R.layout.list_item,
+                                    parent,
+                                    false
+                                )
+
+                                val note = getItem(position)
+
+                                val headlineTextView = view.findViewById<TextView>(R.id.text_note_headline)
+                                val idTextView = view.findViewById<TextView>(R.id.text_note_id)
+                                val textTextView = view.findViewById<TextView>(R.id.text_note_text)
+
+                                // Set data to TextViews
+                                headlineTextView.text = note?.headline
+                                idTextView.text = note?.id.toString()
+                                textTextView.text = note?.note
+
+                                return view
+                            }
+                        }
                         binding.listItem.adapter = arrayAdapter
                         arrayAdapter.notifyDataSetChanged() // Notify adapter of data changes
                         println("Notes fetched successfully")
@@ -63,6 +90,5 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
-
     }
 }
