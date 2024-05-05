@@ -22,7 +22,7 @@ interface NotesService {
 
   @FormUrlEncoded
   @PUT("notes/{id}")
-  fun updateNotes(@Path("id") id: Int, @Field("headline") headline: String, @Field("notes")notes:String): Call<Note>
+  fun updateNotes(@Path("id") id: Int, @Field("headline") headline: String, @Field("note")note:String): Call<Note>
 
   @DELETE("notes/{id}")
   fun deleteNotes(@Path("id")Sid: Int): Call<Note>

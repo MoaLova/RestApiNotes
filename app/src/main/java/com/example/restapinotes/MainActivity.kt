@@ -22,13 +22,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val dummyList = listOf(
-            "Dummy Note 1",
-            "Dummy Note 2",
-            "Dummy Note 3"
-        )
-
-
         binding.AddNotes.setOnClickListener {
             val intent = Intent(this@MainActivity, AddNote::class.java)
             startActivity(intent)
@@ -38,11 +31,12 @@ class MainActivity : AppCompatActivity() {
             getNotes()
         }
 
-        binding.listItem.onItemClickListener = AdapterView.OnItemClickListener{
-            parent, view, position, l ->
-            val selectedNotes =parent.getItemAtPosition(position) as Note
-            val intent = Intent(this, ShowNotesActivity:: class.java)
-            intent.putExtra("item_id", selectedNotes.id)
+        binding.listItem.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, l ->
+            val selectedNote = parent.getItemAtPosition(position) as Note
+            val intent = Intent(this, AddNote::class.java)
+            intent.putExtra("note_id", selectedNote.id)
+            intent.putExtra("note_headline", selectedNote.headline)
+            intent.putExtra("note_text", selectedNote.note)
             startActivity(intent)
         }
     }

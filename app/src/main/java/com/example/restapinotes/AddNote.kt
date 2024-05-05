@@ -11,23 +11,36 @@ import retrofit2.Response
 class AddNote : AppCompatActivity() {
 private lateinit var binding: AddNotBinding
 override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
+        super.onCreate(savedInstanceState)
 
-    binding = AddNotBinding.inflate(layoutInflater)
-    setContentView(binding.root)
+        binding = AddNotBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-    binding.AddNotes.setOnClickListener{
-        addNotes()
+        // Retrieve extras
+        val noteId = intent.getIntExtra("note_id", 0)
+        val noteHeadline = intent.getStringExtra("note_headline") ?: ""
+        val noteText = intent.getStringExtra("note_text") ?: ""
+
+        // Populate UI fields
+        binding.IDEt.setText(noteId.toString())
+        binding.headlineEt.setText(noteHeadline)
+        binding.noteEt.setText(noteText)
+
+        // Set click listeners
+        binding.AddNotes.setOnClickListener {
+            addNotes()
+        }
+
+        binding.DeleteNotes.setOnClickListener {
+            deleteNotes()
+        }
+
+        binding.EditNotes.setOnClickListener {
+            updateNote()
+        }
     }
 
-    binding.DeleteNotes.setOnClickListener{
-        deleteNotes()
-    }
 
-    binding.EditNotes.setOnClickListener{
-        updateNote()
-    }
-}
     private fun updateNote() {
         val headline = binding.headlineEt.text.toString()
         val note = binding.noteEt.text.toString()
