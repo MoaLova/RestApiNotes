@@ -3,17 +3,17 @@ package com.example.restapinotes
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.restapinotes.databinding.AddNotBinding
+import com.example.restapinotes.databinding.ActivityNoteBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AddNote : AppCompatActivity() {
-private lateinit var binding: AddNotBinding
+class NoteActivity : AppCompatActivity() {
+private lateinit var binding: ActivityNoteBinding
 override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = AddNotBinding.inflate(layoutInflater)
+        binding = ActivityNoteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // Retrieve extras
@@ -54,7 +54,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
                 if(response.isSuccessful){
                     finish()
                 } else
-                    Toast.makeText(this@AddNote, "failed to create notes", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@NoteActivity, "failed to create notes", Toast.LENGTH_SHORT).show()
             }
 
             override fun onFailure(call: Call<Note>, t: Throwable) {
@@ -71,9 +71,9 @@ override fun onCreate(savedInstanceState: Bundle?) {
         requestCall.enqueue(object : retrofit2.Callback<Note>{
             override fun onResponse(call: Call<Note>, response: Response<Note>) {
                 if (response.isSuccessful){
-                    Toast.makeText(this@AddNote, "delete notes", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@NoteActivity, "delete notes", Toast.LENGTH_SHORT).show()
                     finish()
-                }else Toast.makeText(this@AddNote, "failed to delete note", Toast.LENGTH_SHORT).show()
+                }else Toast.makeText(this@NoteActivity, "failed to delete note", Toast.LENGTH_SHORT).show()
             }
 
             override fun onFailure(call: Call<Note>, t: Throwable) {
@@ -93,12 +93,12 @@ override fun onCreate(savedInstanceState: Bundle?) {
             override fun onResponse(call: Call<Note>, response: Response<Note>) {
                 if (response.isSuccessful) {
                     println("Note added successfully")
-                    Toast.makeText(this@AddNote, "Note added successfully", Toast.LENGTH_SHORT)
+                    Toast.makeText(this@NoteActivity, "Note added successfully", Toast.LENGTH_SHORT)
                         .show()
                     finish()
                 } else {
                     println("Failed to add note")
-                    Toast.makeText(this@AddNote, "Failed to add note", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@NoteActivity, "Failed to add note", Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -106,7 +106,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
                 t.printStackTrace()
                 println("Failed to add note due to an error: ${t.message}")
                 Toast.makeText(
-                    this@AddNote,
+                    this@NoteActivity,
                     "Failed to add note due to an error: ${t.message}",
                     Toast.LENGTH_SHORT
                 ).show()
