@@ -48,58 +48,53 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun getNotes() {
-        // Commenting out Retrofit service call
-        // val notesService = ServiceBuilder.buildService(NotesService::class.java)
-        // val requestCall = notesService.getNotes()
+        val notesService = ServiceBuilder.buildService(NotesService::class.java)
+        val requestCall = notesService.getNotes()
 
-        // Instead of calling Retrofit service, use the dummy list directly
-        val dummyList = generateDummyNotes()
+        requestCall.enqueue(object : Callback<List<Note>> {
+            override fun onResponse(call: Call<List<Note>>, response: Response<List<Note>>) {
+                if (response.isSuccessful) {
+                    val notesList: List<Note> = response.body() ?: emptyList()
+                    runOnUiThread {
 
-        // Using dummy list directly instead of Retrofit call
-        // requestCall.enqueue(object : Callback<List<Note>> {
-        //    override fun onResponse(call: Call<List<Note>>, response: Response<List<Note>>) {
-        //        if (response.isSuccessful) {
-        //            val notesList: List<Note> = response.body() ?: emptyList()
-        //            runOnUiThread {
+                        // Initialize custom ArrayAdapter
+                        val arrayAdapter = object : ArrayAdapter<Note>(
+                            this@MainActivity,
+                            R.layout.list_item,
+                            notesList
+                        ) {
+                            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                                val view = convertView ?: layoutInflater.inflate(
+                                    R.layout.list_item,
+                                    parent,
+                                    false
+                                )
 
-        // Initialize custom ArrayAdapter
-        val arrayAdapter = object : ArrayAdapter<Note>(
-            this@MainActivity,
-            R.layout.list_item,
-            dummyList
-        ) {
-            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-                val view = convertView ?: layoutInflater.inflate(
-                    R.layout.list_item,
-                    parent,
-                    false
-                )
+                                val note = getItem(position)
 
-                val note = getItem(position)
+                                val headlineTextView = view.findViewById<TextView>(R.id.text_note_headline)
+                                val idTextView = view.findViewById<TextView>(R.id.text_note_id)
 
-                val headlineTextView = view.findViewById<TextView>(R.id.text_note_headline)
-                val idTextView = view.findViewById<TextView>(R.id.text_note_id)
+                                headlineTextView.text = note?.headline
+                                idTextView.text = note?.id.toString()
 
-                headlineTextView.text = note?.headline
-                idTextView.text = note?.id.toString()
-
-                return view
+                                return view
+                            }
+                        }
+                        binding.listItem.adapter = arrayAdapter
+                        arrayAdapter.notifyDataSetChanged() // Notify adapter of data changes
+                        println("Notes fetched successfully")
+                    }
+                }
             }
-        }
-        binding.listItem.adapter = arrayAdapter
-        arrayAdapter.notifyDataSetChanged() // Notify adapter of data changes
-        println("Notes fetched successfully")
-        //                }
-        //            }
-        //        }
-        //
-        //        override fun onFailure(call: Call<List<Note>>, t: Throwable) {
-        //            t.printStackTrace()
-        //            runOnUiThread {
-        //                println("Failed to fetch notes")
-        //            }
-        //        }
-        //    })
-    }
+
+            override fun onFailure(call: Call<List<Note>>, t: Throwable) {
+                t.printStackTrace()
+                runOnUiThread {
+                    println("Failed to fetch notes")
+                }
+            }
+        })
+}
 
 }
