@@ -22,6 +22,13 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val dummyList = listOf(
+            "Dummy Note 1",
+            "Dummy Note 2",
+            "Dummy Note 3"
+        )
+
+
         binding.AddNotes.setOnClickListener {
             val intent = Intent(this@MainActivity, AddNote::class.java)
             startActivity(intent)
@@ -41,54 +48,58 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun getNotes() {
-        val notesService = ServiceBuilder.buildService(NotesService::class.java)
-        val requestCall = notesService.getNotes()
+        // Commenting out Retrofit service call
+        // val notesService = ServiceBuilder.buildService(NotesService::class.java)
+        // val requestCall = notesService.getNotes()
 
-        requestCall.enqueue(object : Callback<List<Note>> {
-            override fun onResponse(call: Call<List<Note>>, response: Response<List<Note>>) {
-                if (response.isSuccessful) {
-                    val notesList: List<Note> = response.body() ?: emptyList()
-                    runOnUiThread {
-                        // Initialize custom ArrayAdapter
-                        val arrayAdapter = object : ArrayAdapter<Note>(
-                            this@MainActivity,
-                            R.layout.list_item,
-                            notesList
-                        ) {
-                            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-                                val view = convertView ?: layoutInflater.inflate(
-                                    R.layout.list_item,
-                                    parent,
-                                    false
-                                )
+        // Instead of calling Retrofit service, use the dummy list directly
+        val dummyList = generateDummyNotes()
 
-                                val note = getItem(position)
+        // Using dummy list directly instead of Retrofit call
+        // requestCall.enqueue(object : Callback<List<Note>> {
+        //    override fun onResponse(call: Call<List<Note>>, response: Response<List<Note>>) {
+        //        if (response.isSuccessful) {
+        //            val notesList: List<Note> = response.body() ?: emptyList()
+        //            runOnUiThread {
 
-                                val headlineTextView = view.findViewById<TextView>(R.id.text_note_headline)
-                                val idTextView = view.findViewById<TextView>(R.id.text_note_id)
-                                val textTextView = view.findViewById<TextView>(R.id.text_note_text)
+        // Initialize custom ArrayAdapter
+        val arrayAdapter = object : ArrayAdapter<Note>(
+            this@MainActivity,
+            R.layout.list_item,
+            dummyList
+        ) {
+            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val view = convertView ?: layoutInflater.inflate(
+                    R.layout.list_item,
+                    parent,
+                    false
+                )
 
-                                // Set data to TextViews
-                                headlineTextView.text = note?.headline
-                                idTextView.text = note?.id.toString()
-                                textTextView.text = note?.note
+                val note = getItem(position)
 
-                                return view
-                            }
-                        }
-                        binding.listItem.adapter = arrayAdapter
-                        arrayAdapter.notifyDataSetChanged() // Notify adapter of data changes
-                        println("Notes fetched successfully")
-                    }
-                }
+                val headlineTextView = view.findViewById<TextView>(R.id.text_note_headline)
+                val idTextView = view.findViewById<TextView>(R.id.text_note_id)
+
+                headlineTextView.text = note?.headline
+                idTextView.text = note?.id.toString()
+
+                return view
             }
-
-            override fun onFailure(call: Call<List<Note>>, t: Throwable) {
-                t.printStackTrace()
-                runOnUiThread {
-                    println("Failed to fetch notes")
-                }
-            }
-        })
+        }
+        binding.listItem.adapter = arrayAdapter
+        arrayAdapter.notifyDataSetChanged() // Notify adapter of data changes
+        println("Notes fetched successfully")
+        //                }
+        //            }
+        //        }
+        //
+        //        override fun onFailure(call: Call<List<Note>>, t: Throwable) {
+        //            t.printStackTrace()
+        //            runOnUiThread {
+        //                println("Failed to fetch notes")
+        //            }
+        //        }
+        //    })
     }
+
 }

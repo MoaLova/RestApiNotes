@@ -2,16 +2,25 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
 
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/layout_list"
-    android:background="@color/pink">
+    android:background="@color/yellow">
+
+    <View
+        android:layout_width="415dp"
+        android:layout_height="15dp"
+        android:layout_marginTop="172dp"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/text_note_headline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Här kommer headline"
         android:fontFamily="serif"
         android:textColor="@color/grey"
         android:textColorHint="@color/black"
@@ -20,13 +29,12 @@
         app:layout_constraintHorizontal_bias="0.464"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.226" />
+        app:layout_constraintVertical_bias="0.042" />
 
     <TextView
         android:id="@+id/text_note_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="här kommer id"
         android:fontFamily="serif"
         android:textColor="@color/grey"
         android:textColorHint="@color/black"
@@ -35,21 +43,7 @@
         app:layout_constraintHorizontal_bias="0.464"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.41" />
+        app:layout_constraintVertical_bias="0.119" />
 
-    <TextView
-        android:id="@+id/text_note_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="här kommer text"
-        android:fontFamily="serif"
-        android:textColor="@color/grey"
-        android:textColorHint="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.464"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.32" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
