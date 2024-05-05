@@ -7,4 +7,5 @@
     <string name="edit_notes">Edit notes</string>
     <string name="delete_notes">Delete notes</string>
     <string name="id">ID</string>
+    <string name="get_or_update_your_note_list_with_button_get_notes">Get or update your note list with button: Get notes</string>
 </resources>

@@ -16,17 +16,14 @@ override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityNoteBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Retrieve extras
         val noteId = intent.getIntExtra("note_id", 0)
         val noteHeadline = intent.getStringExtra("note_headline") ?: ""
         val noteText = intent.getStringExtra("note_text") ?: ""
 
-        // Populate UI fields
         binding.IDEt.setText(noteId.toString())
         binding.headlineEt.setText(noteHeadline)
         binding.noteEt.setText(noteText)
 
-        // Set click listeners
         binding.AddNotes.setOnClickListener {
             addNotes()
         }

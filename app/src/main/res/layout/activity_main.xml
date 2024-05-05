@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
         android:text="@string/notes"
-        android:textSize="30dp"
+        android:textSize="@dimen/text_big"
         android:textColor="@color/grey"
         android:fontFamily="serif"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,8 +22,8 @@
 
     <ListView
         android:id="@+id/list_item"
-        android:layout_width="414dp"
-        android:layout_height="407dp"
+        android:layout_width="@dimen/listview_w"
+        android:layout_height="@dimen/listview_h"
         android:foregroundGravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,32 +33,47 @@
         app:layout_constraintVertical_bias="0.45"
         tools:listitem="@layout/list_item" />
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="528dp"
+        android:fontFamily="serif"
+        android:gravity="center"
+        android:text="@string/get_or_update_your_note_list_with_button_get_notes"
+        android:textColor="@color/grey"
+        android:textSize="@dimen/text_small"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/getNotes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="56dp"
         android:backgroundTint="@color/blue"
         android:fontFamily="serif"
         android:text="@string/get_notes"
         android:textColor="@color/grey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.785"
+        app:layout_constraintHorizontal_bias="0.844"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/AddNotes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
+        android:layout_marginBottom="56dp"
         android:backgroundTint="@color/blue"
         android:fontFamily="serif"
         android:text="@string/add_notes"
         android:textColor="@color/grey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.267"
+        app:layout_constraintHorizontal_bias="0.21"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

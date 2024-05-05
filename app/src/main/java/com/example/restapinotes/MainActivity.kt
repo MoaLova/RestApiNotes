@@ -13,6 +13,7 @@ import com.example.restapinotes.databinding.ActivityMainBinding
 import retrofit2.Call
 import retrofit2.Response
 
+//Jag lyckades få appen att funka när jag loggade in via en annan dator, därav två Moa/Svensson
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -51,7 +52,6 @@ class MainActivity : AppCompatActivity() {
                     val notesList: List<Note> = response.body() ?: emptyList()
                     runOnUiThread {
 
-                        // Initialize custom ArrayAdapter
                         val arrayAdapter = object : ArrayAdapter<Note>(
                             this@MainActivity,
                             R.layout.list_item,
@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity() {
                             }
                         }
                         binding.listItem.adapter = arrayAdapter
-                        arrayAdapter.notifyDataSetChanged() // Notify adapter of data changes
+                        arrayAdapter.notifyDataSetChanged()
                         println("Notes fetched successfully")
                     }
                 }

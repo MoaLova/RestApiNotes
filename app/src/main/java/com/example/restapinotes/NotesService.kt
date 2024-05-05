@@ -14,6 +14,8 @@ interface NotesService {
   @GET("notes")
   fun getNotes(): Call<List<Note>>
 
+
+  //slutade med att jag ej använde denna, functionen ligger med i gammal commit men raderades i nuvarande
   @GET( "notes/{id}")
   fun getNotesByID(@Path("id")id: Int): Call<Note>
 
