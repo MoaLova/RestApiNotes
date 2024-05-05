@@ -43,20 +43,24 @@ class MainActivity : AppCompatActivity() {
 
         val requestCall = notesService.getNotes()
 
-        requestCall.enqueue(object : Callback <List<Note>> {
+        requestCall.enqueue(object : Callback<List<Note>> {
             override fun onResponse(call: Call<List<Note>>, response: Response<List<Note>>) {
-                if(response.isSuccessful){
+                if (response.isSuccessful) {
                     val notesList: List<Note> = response.body() ?: emptyList()
-                    val arrayAdapter = ArrayAdapter(this@MainActivity, R.layout.show_notes, notesList)
-                    binding.listItem.adapter = arrayAdapter
-                    arrayAdapter.notifyDataSetChanged() // Notify adapter of data changes
-                    println("det funkar att hämat")
+                    runOnUiThread {
+                        val arrayAdapter = ArrayAdapter(this@MainActivity, R.layout.show_notes, notesList)
+                        binding.listItem.adapter = arrayAdapter
+                        arrayAdapter.notifyDataSetChanged() // Notify adapter of data changes
+                        println("Notes fetched successfully")
+                    }
                 }
             }
 
             override fun onFailure(call: Call<List<Note>>, t: Throwable) {
                 t.printStackTrace()
-                println("det funkar inte att hämta notes")
+                runOnUiThread {
+                    println("Failed to fetch notes")
+                }
             }
         })
 
